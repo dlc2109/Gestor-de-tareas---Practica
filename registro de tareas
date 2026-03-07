@@ -1,0 +1,24 @@
+[
+    {
+        "nombre": "arreglar el carro",
+        "id": 1,
+        "categoria": "mecanico"
+    },
+    {
+        "nombre": "insumos cocina",
+        "id": 2,
+        "categoria": "alimentos"
+    },
+    {
+        "nombre": "comprar zapatos",
+        "id": 3,
+        "categoria": "moda",
+        "fecha": "07/03/26"
+    },
+    {
+        "nombre": "comprar laptop",
+        "id": 5,
+        "categoria": "oficina",
+        "fecha": "07/03/26"
+    }
+]
