@@ -9,27 +9,40 @@ def registro_tareas ():
        return []
 def opcion_menu():
   print('1. Ingrese 1 para agregar tareas : ')
-  print('2. Ingrese 2 para moatrar tareas : ')
+  print('2. Ingrese 2 para mostrar tareas : ')
   print('3. Ingrese 3 para eliminar tarea : ')
-  print('4. Ingrese 4 para salir : ')
+  print('4. Ingrese 4 para maracar completada : ')
+  print('5. Ingrese 5  para filtrar por categoria : ')
+  print('6. Ingrese 6 para salir : ')
   print('-------------------------------------')
 
-def agragar_tarea(nombre,id,categoria):
-    tarea = registro_tareas()
-    fecha_actual = datetime.now().strftime("%d/%m/%y")
-    nueva_tarea = {
-    'nombre' : nombre,
-    'id': id,
+#AGREGAR
+def agregar_tarea():
+  nombre = input('Nombre : ').lower()
+  try:
+    id_tarea = int(input('ID : '))
+  except ValueError:
+    print('ERROR : El ID debe ser un número')
+    return 
+  categoria = input('Categoria : ').lower()
+  estado = 'pendiente'
+  tareas = registro_tareas()
+  fecha_actual = datetime.now().strftime("%d/%m/%y")
+  nueva_tarea = {
+    'nombre': nombre,
+    'id': id_tarea,
     'categoria': categoria,
-    'fecha': fecha_actual
-    }
+    'fecha': fecha_actual,
+    'estado': estado
+  }
 
-    tarea.append(nueva_tarea)
+  tareas.append(nueva_tarea)
 
-    with open('registro de tareas' , 'w') as archivo:
-      json.dump(tarea,archivo,indent=4)
-      print('Tarea Guardada con exito')
+  with open('registro de tareas', 'w') as archivo:
+    json.dump(tareas, archivo, indent=4)
+    print('Tarea Guardada con éxito')
 
+#MOSTRAR
 def mostrar_tarea():
   tareas = registro_tareas()
 
@@ -38,19 +51,64 @@ def mostrar_tarea():
     return
 
   for tarea in tareas:
-      print(f" ID: {tarea['id']} |  {tarea['nombre'].upper()}")
-      print(f"  Cat: {tarea['categoria']} | ")
+      print(f" ID: {tarea.get('id')} |  {tarea.get('nombre')} | Categoria: {tarea.get('categoria')} | Estado: {tarea.get('estado')}")
+
+#COMPLETADO     
+def completado ():
+  tareas = registro_tareas()
+  try:
+    terminado = int(input('Ingesa ID de tarea completada: '))
+  except ValueError:
+    print('ID invalido')
+    return
+  encontrada = False
+  for tarea in tareas:
+      if tarea['id'] == terminado:
+        tarea['estado'] = 'completada'
+        encontrada = True
+  with open('registro de tareas', 'w') as archivo:
+     json.dump(tareas, archivo, indent=4)
+     print('Tarea Marcada como completada')
+
+#ELIMINAR
+def eliminar_tarea ():
+    print('--TAREAS ACTUALES--')
+    mostrar_tarea()
+    
+    tareas = registro_tareas()
+    if not tareas:
+      print(' No hay registros guardados')
+      return
+    try:
+      eliminar = int(input(' Ingrese ID  a eliminar : '))
+    except ValueError:
+      print("El ID debe ser un número.")
+      return
+
+    encontrada = False
+    for tarea in tareas:
+       if tarea['id'] == eliminar :
+         tareas.remove(tarea)
+         encontrada = True
+         break
+    if encontrada:
+        with open ('registro de tareas' , 'w') as archivo:
+          json.dump(tareas,archivo,indent=4)
+          print('Tarea elimanada exitosamente')
+    else:
+        print('No se encontro tareas con ese ID')
+        
+#BUSCAR
+def buscar_categoria():
+  tareas = registro_tareas()
+  categoria = input('Ingresa categoria de tareas: ').lower()
+  encontrada = False
+
+  for tarea in tareas:
+    if tarea['categoria'] == categoria:
+      print (tarea)
+      encontrada = True
 
 
-
-
-def eliminar_tarea(id_eliminar):
-  tareas_actuales = mostrar_tarea()
-  lista_nueva = []
-  encontrada = false
-
-  for tarea in tareas_actuales:
-    if tarea.get('id') == id_eliminar:
-      encontrada == True
 
 

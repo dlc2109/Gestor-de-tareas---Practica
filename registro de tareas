@@ -1,13 +1,9 @@
 [
     {
-        "nombre": "arreglar el carro",
-        "id": 1,
-        "categoria": "mecanico"
-    },
-    {
         "nombre": "insumos cocina",
         "id": 2,
-        "categoria": "alimentos"
+        "categoria": "alimentos",
+        "estado": "completada"
     },
     {
         "nombre": "comprar zapatos",
@@ -20,5 +16,18 @@
         "id": 5,
         "categoria": "oficina",
         "fecha": "07/03/26"
+    },
+    {
+        "nombre": "comprar lapto",
+        "id": 6,
+        "categoria": "oficina",
+        "fecha": "07/03/26"
+    },
+    {
+        "nombre": "estudiar python",
+        "id": 1,
+        "categoria": "estudio",
+        "fecha": "07/03/26",
+        "estado": "pendiente"
     }
 ]
