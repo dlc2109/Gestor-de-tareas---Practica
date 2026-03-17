@@ -1,11 +1,16 @@
 import funciones
-import funciones
+
 print('---GESTOR DE TAREAS---')
 
 while True:
     funciones.opcion_menu()
     
-    opcion = int(input('Ingrese una opcion: '))
+    try:
+        opcion = int(input('Ingrese una opcion: '))
+    except ValueError:
+        print('Error: Por favor ingrese un número válido.')
+        continue
+
     match opcion:
         case 1 : 
             funciones.agregar_tarea()
@@ -20,6 +25,8 @@ while True:
         case 6:
             print('--- FIN DEL PROGRAMA ---')
             break
+        case _:
+            print('Opción no válida. Por favor, ingrese un número del 1 al 6.')
 
             
 

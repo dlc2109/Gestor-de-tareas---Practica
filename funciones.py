@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+import datetime
 
 def registro_tareas ():
     try:
@@ -7,6 +7,7 @@ def registro_tareas ():
         return json.load(archivo)
     except(FileNotFoundError,json.JSONDecodeError):
        return []
+#MENU
 def opcion_menu():
   print('1. Ingrese 1 para agregar tareas : ')
   print('2. Ingrese 2 para mostrar tareas : ')
@@ -24,10 +25,12 @@ def agregar_tarea():
   except ValueError:
     print('ERROR : El ID debe ser un número')
     return 
+    
   categoria = input('Categoria : ').lower()
   estado = 'pendiente'
+
   tareas = registro_tareas()
-  fecha_actual = datetime.now().strftime("%d/%m/%y")
+  fecha_actual = datetime.datetime.now().strftime("%d/%m/%y")
   nueva_tarea = {
     'nombre': nombre,
     'id': id_tarea,
@@ -95,9 +98,10 @@ def eliminar_tarea ():
         with open ('registro de tareas' , 'w') as archivo:
           json.dump(tareas,archivo,indent=4)
           print('Tarea elimanada exitosamente')
+          
     else:
         print('No se encontro tareas con ese ID')
-        
+
 #BUSCAR
 def buscar_categoria():
   tareas = registro_tareas()
